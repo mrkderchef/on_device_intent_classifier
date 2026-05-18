@@ -1,0 +1,24 @@
+[15:10:25] Config saved to outputs\student\distill\config.json
+[15:10:29] Training started: student_distill
+[15:15:12] Epoch   1 | train_loss=1.7827 | train_acc=0.8814 | val_acc=0.9694 | val_f1=0.9693 | lr=0.0005 | distill_loss=2.3654 | ce_loss=0.4229
+[15:19:45] Epoch   2 | train_loss=0.4331 | train_acc=0.9692 | val_acc=0.9694 | val_f1=0.9692 | lr=0.0005 | distill_loss=0.5554 | ce_loss=0.1479
+[15:24:14] Epoch   3 | train_loss=0.3300 | train_acc=0.9782 | val_acc=0.9771 | val_f1=0.9770 | lr=0.0005 | distill_loss=0.4197 | ce_loss=0.1208
+[15:28:17] Epoch   4 | train_loss=0.2599 | train_acc=0.9824 | val_acc=0.9710 | val_f1=0.9707 | lr=0.0005 | distill_loss=0.3313 | ce_loss=0.0934
+[15:32:22] Epoch   5 | train_loss=0.2024 | train_acc=0.9868 | val_acc=0.9710 | val_f1=0.9709 | lr=0.0004 | distill_loss=0.2593 | ce_loss=0.0694
+[15:36:26] Epoch   6 | train_loss=0.1669 | train_acc=0.9888 | val_acc=0.9710 | val_f1=0.9709 | lr=0.0004 | distill_loss=0.2139 | ce_loss=0.0573
+[15:40:39] Epoch   7 | train_loss=0.1337 | train_acc=0.9921 | val_acc=0.9725 | val_f1=0.9722 | lr=0.0004 | distill_loss=0.1719 | ce_loss=0.0447
+[15:44:58] Epoch   8 | train_loss=0.1188 | train_acc=0.9930 | val_acc=0.9756 | val_f1=0.9752 | lr=0.0003 | distill_loss=0.1531 | ce_loss=0.0388
+[15:49:31] Epoch   9 | train_loss=0.0973 | train_acc=0.9947 | val_acc=0.9771 | val_f1=0.9770 | lr=0.0003 | distill_loss=0.1265 | ce_loss=0.0292
+[15:53:47] Epoch  10 | train_loss=0.0826 | train_acc=0.9954 | val_acc=0.9778 | val_f1=0.9778 | lr=0.0002 | distill_loss=0.1076 | ce_loss=0.0244
+[15:58:00] Epoch  11 | train_loss=0.0807 | train_acc=0.9957 | val_acc=0.9786 | val_f1=0.9786 | lr=0.0002 | distill_loss=0.1044 | ce_loss=0.0253
+[16:02:19] Epoch  12 | train_loss=0.0635 | train_acc=0.9970 | val_acc=0.9771 | val_f1=0.9770 | lr=0.0002 | distill_loss=0.0837 | ce_loss=0.0163
+[16:06:18] Epoch  13 | train_loss=0.0581 | train_acc=0.9975 | val_acc=0.9794 | val_f1=0.9792 | lr=0.0001 | distill_loss=0.0767 | ce_loss=0.0148
+[16:09:47] Epoch  14 | train_loss=0.0526 | train_acc=0.9980 | val_acc=0.9771 | val_f1=0.9770 | lr=0.0001 | distill_loss=0.0697 | ce_loss=0.0129
+[16:13:06] Epoch  15 | train_loss=0.0478 | train_acc=0.9984 | val_acc=0.9786 | val_f1=0.9786 | lr=0.0001 | distill_loss=0.0641 | ce_loss=0.0098
+[16:16:25] Epoch  16 | train_loss=0.0514 | train_acc=0.9976 | val_acc=0.9794 | val_f1=0.9793 | lr=0.0000 | distill_loss=0.0682 | ce_loss=0.0124
+[16:19:45] Epoch  17 | train_loss=0.0494 | train_acc=0.9980 | val_acc=0.9794 | val_f1=0.9793 | lr=0.0000 | distill_loss=0.0656 | ce_loss=0.0115
+[16:23:03] Epoch  18 | train_loss=0.0425 | train_acc=0.9986 | val_acc=0.9794 | val_f1=0.9793 | lr=0.0000 | distill_loss=0.0569 | ce_loss=0.0088
+[16:26:24] Epoch  19 | train_loss=0.0408 | train_acc=0.9989 | val_acc=0.9786 | val_f1=0.9786 | lr=0.0000 | distill_loss=0.0550 | ce_loss=0.0075
+[16:30:01] Epoch  20 | train_loss=0.0429 | train_acc=0.9983 | val_acc=0.9786 | val_f1=0.9786 | lr=0.0000 | distill_loss=0.0576 | ce_loss=0.0085
+[16:30:02] Final results saved to outputs\student\distill\results.json
+[16:30:02] Total training time: 79.6 minutes

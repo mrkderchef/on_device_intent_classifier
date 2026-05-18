@@ -1,0 +1,24 @@
+[14:56:36] Config saved to outputs\student\baseline\config.json
+[14:56:40] Training started: student_baseline
+[14:57:14] Epoch   1 | train_loss=0.3631 | train_acc=0.8819 | val_acc=0.9595 | val_f1=0.9588 | lr=0.0005
+[14:57:48] Epoch   2 | train_loss=0.1047 | train_acc=0.9682 | val_acc=0.9717 | val_f1=0.9715 | lr=0.0005
+[14:58:23] Epoch   3 | train_loss=0.0765 | train_acc=0.9762 | val_acc=0.9710 | val_f1=0.9711 | lr=0.0005
+[14:58:57] Epoch   4 | train_loss=0.0602 | train_acc=0.9823 | val_acc=0.9771 | val_f1=0.9770 | lr=0.0005
+[14:59:32] Epoch   5 | train_loss=0.0446 | train_acc=0.9871 | val_acc=0.9778 | val_f1=0.9777 | lr=0.0004
+[15:00:06] Epoch   6 | train_loss=0.0357 | train_acc=0.9886 | val_acc=0.9771 | val_f1=0.9769 | lr=0.0004
+[15:00:41] Epoch   7 | train_loss=0.0257 | train_acc=0.9919 | val_acc=0.9756 | val_f1=0.9755 | lr=0.0004
+[15:01:15] Epoch   8 | train_loss=0.0222 | train_acc=0.9935 | val_acc=0.9748 | val_f1=0.9746 | lr=0.0003
+[15:01:50] Epoch   9 | train_loss=0.0172 | train_acc=0.9938 | val_acc=0.9794 | val_f1=0.9794 | lr=0.0003
+[15:02:24] Epoch  10 | train_loss=0.0111 | train_acc=0.9968 | val_acc=0.9786 | val_f1=0.9786 | lr=0.0002
+[15:02:59] Epoch  11 | train_loss=0.0122 | train_acc=0.9967 | val_acc=0.9763 | val_f1=0.9764 | lr=0.0002
+[15:03:35] Epoch  12 | train_loss=0.0082 | train_acc=0.9975 | val_acc=0.9771 | val_f1=0.9771 | lr=0.0002
+[15:04:09] Epoch  13 | train_loss=0.0083 | train_acc=0.9974 | val_acc=0.9801 | val_f1=0.9801 | lr=0.0001
+[15:04:47] Epoch  14 | train_loss=0.0053 | train_acc=0.9983 | val_acc=0.9794 | val_f1=0.9794 | lr=0.0001
+[15:05:26] Epoch  15 | train_loss=0.0029 | train_acc=0.9988 | val_acc=0.9801 | val_f1=0.9801 | lr=0.0001
+[15:06:13] Epoch  16 | train_loss=0.0020 | train_acc=0.9994 | val_acc=0.9801 | val_f1=0.9801 | lr=0.0000
+[15:06:54] Epoch  17 | train_loss=0.0030 | train_acc=0.9987 | val_acc=0.9809 | val_f1=0.9809 | lr=0.0000
+[15:07:36] Epoch  18 | train_loss=0.0038 | train_acc=0.9986 | val_acc=0.9809 | val_f1=0.9809 | lr=0.0000
+[15:08:20] Epoch  19 | train_loss=0.0035 | train_acc=0.9990 | val_acc=0.9809 | val_f1=0.9809 | lr=0.0000
+[15:09:02] Epoch  20 | train_loss=0.0026 | train_acc=0.9993 | val_acc=0.9809 | val_f1=0.9809 | lr=0.0000
+[15:09:03] Final results saved to outputs\student\baseline\results.json
+[15:09:03] Total training time: 12.4 minutes

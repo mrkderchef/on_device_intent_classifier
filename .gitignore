@@ -28,8 +28,7 @@ env/
 # data/processed/
 
 # Model outputs
-outputs/
-*.pt
+# Tracked experiment artifacts live under outputs/.
 *.bin
 *.ckpt
 
@@ -39,4 +38,5 @@ Thumbs.db
 
 # Logs
 *.log
+!outputs/**/*.log
 runs/

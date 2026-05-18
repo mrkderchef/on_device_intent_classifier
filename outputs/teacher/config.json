@@ -1,0 +1,11 @@
+{
+  "experiment_name": "teacher_bert_base",
+  "timestamp": "2026-05-18T13:22:26.023467",
+  "model_name": "bert-base-uncased",
+  "epochs": 5,
+  "batch_size": 32,
+  "learning_rate": 2e-05,
+  "weight_decay": 0.01,
+  "max_length": 32,
+  "device": "cpu"
+}

@@ -1,0 +1,16 @@
+{
+  "experiment_name": "student_distill",
+  "timestamp": "2026-05-18T15:10:25.126872",
+  "mode": "distill",
+  "hidden_size": 256,
+  "num_layers": 2,
+  "num_heads": 4,
+  "intermediate_size": 512,
+  "epochs": 20,
+  "batch_size": 64,
+  "learning_rate": 0.0005,
+  "max_length": 32,
+  "temperature": 4.0,
+  "alpha": 0.7,
+  "device": "cpu"
+}

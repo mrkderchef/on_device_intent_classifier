@@ -1,0 +1,16 @@
+{
+  "experiment_name": "student_baseline",
+  "timestamp": "2026-05-18T14:56:36.492213",
+  "mode": "baseline",
+  "hidden_size": 256,
+  "num_layers": 2,
+  "num_heads": 4,
+  "intermediate_size": 512,
+  "epochs": 20,
+  "batch_size": 64,
+  "learning_rate": 0.0005,
+  "max_length": 32,
+  "temperature": null,
+  "alpha": null,
+  "device": "cpu"
+}

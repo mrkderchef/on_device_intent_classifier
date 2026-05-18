@@ -1,0 +1,78 @@
+{
+  "experiment_name": "teacher_bert_base",
+  "timestamp": "2026-05-18T14:35:58.141835",
+  "total_training_time_seconds": 4409.18221282959,
+  "total_training_time_minutes": 73.4863702138265,
+  "epoch_history": [
+    {
+      "train_loss": 0.18247800824768923,
+      "train_acc": 0.9517622080679405,
+      "val_acc": 0.9877769289533995,
+      "val_f1": 0.9877736876930218,
+      "lr": 1.809016994374947e-05,
+      "epoch": 1,
+      "elapsed_seconds": 880.8314695358276
+    },
+    {
+      "train_loss": 0.02624464374283612,
+      "train_acc": 0.991932059447983,
+      "val_acc": 0.9908326967150497,
+      "val_f1": 0.9908207728862534,
+      "lr": 1.3090169943749487e-05,
+      "epoch": 2,
+      "elapsed_seconds": 1756.7729423046112
+    },
+    {
+      "train_loss": 0.011959218805081353,
+      "train_acc": 0.9962632696390659,
+      "val_acc": 0.9862490450725745,
+      "val_f1": 0.9861995146498134,
+      "lr": 6.909830056250526e-06,
+      "epoch": 3,
+      "elapsed_seconds": 2633.3967821598053
+    },
+    {
+      "train_loss": 0.00562408813912834,
+      "train_acc": 0.9985562632696391,
+      "val_acc": 0.9893048128342246,
+      "val_f1": 0.9892822834507494,
+      "lr": 1.9098300562505245e-06,
+      "epoch": 4,
+      "elapsed_seconds": 3508.7491874694824
+    },
+    {
+      "train_loss": 0.0028397401829747455,
+      "train_acc": 0.9994055201698514,
+      "val_acc": 0.9915966386554622,
+      "val_f1": 0.9915751490602902,
+      "lr": 0.0,
+      "epoch": 5,
+      "elapsed_seconds": 4384.372952461243
+    }
+  ],
+  "final_results": {
+    "best_val_acc": 0.9915966386554622,
+    "test": {
+      "accuracy": 0.9914285714285714,
+      "precision_macro": 0.9916091512063828,
+      "recall_macro": 0.9914285714285713,
+      "f1_macro": 0.9914542044055565,
+      "precision_weighted": 0.9916091512063828,
+      "recall_weighted": 0.9914285714285714,
+      "f1_weighted": 0.9914542044055565
+    },
+    "num_parameters": 109487623,
+    "model_size_mb": 417.66994857788086
+  },
+  "config": {
+    "experiment_name": "teacher_bert_base",
+    "timestamp": "2026-05-18T13:22:26.023467",
+    "model_name": "bert-base-uncased",
+    "epochs": 5,
+    "batch_size": 32,
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "max_length": 32,
+    "device": "cpu"
+  }
+}
