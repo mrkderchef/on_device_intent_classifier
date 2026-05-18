@@ -114,7 +114,7 @@ def create_dataloaders(
             batch_size=batch_size,
             shuffle=shuffle,
             num_workers=num_workers,
-            pin_memory=True,
+            pin_memory=torch.cuda.is_available(),
         )
         dataloaders.append(loader)
 

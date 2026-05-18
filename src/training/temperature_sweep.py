@@ -11,100 +11,128 @@ from pathlib import Path
 
 import torch
 
-from src.data.dataset import create_dataloaders, get_label_map
-from src.models.student import StudentModel
-from src.models.teacher import TeacherModel
+from src.config import DataConfig, StudentConfig, DistillationConfig, TemperatureSweepConfig
 from src.training.train_student import train_student
-from src.evaluation.evaluate import evaluate_model
+from src.training.logger import TrainingLogger
 
 
 def temperature_sweep(
-    temperatures: list = None,
-    data_dir: str = "data/processed",
-    output_dir: str = "outputs/temperature_sweep",
-    teacher_path: str = "outputs/teacher/best_model.pt",
-    hidden_size: int = 256,
-    num_layers: int = 3,
-    num_heads: int = 4,
-    intermediate_size: int = 512,
-    epochs: int = 10,
-    batch_size: int = 64,
-    learning_rate: float = 5e-4,
-    alpha: float = 0.7,
-    max_length: int = 64,
+    data_config: DataConfig = None,
+    student_config: StudentConfig = None,
+    sweep_config: TemperatureSweepConfig = None,
     device: str = None,
 ):
     """Run distillation experiments across multiple temperatures."""
-    if temperatures is None:
-        temperatures = [1.0, 2.0, 3.0, 5.0, 10.0, 20.0]
-
+    if data_config is None:
+        data_config = DataConfig()
+    if student_config is None:
+        student_config = StudentConfig()
+    if sweep_config is None:
+        sweep_config = TemperatureSweepConfig()
     if device is None:
         device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    output_path = Path(output_dir)
+    output_path = Path(sweep_config.output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
+
+    # Sweep logger
+    logger = TrainingLogger(sweep_config.output_dir, "temperature_sweep")
+    logger.log_config({
+        "temperatures": sweep_config.temperatures,
+        "epochs_per_temp": sweep_config.epochs_per_temp,
+        "student_hidden_size": student_config.hidden_size,
+        "student_num_layers": student_config.num_layers,
+        "alpha": 0.7,
+        "device": device,
+    })
 
     print("=" * 60)
     print("TEMPERATURE SWEEP EXPERIMENT")
-    print(f"Temperatures: {temperatures}")
+    print(f"Temperatures: {sweep_config.temperatures}")
+    print(f"Epochs per temperature: {sweep_config.epochs_per_temp}")
     print(f"Device: {device}")
     print("=" * 60)
 
     results = []
+    logger.start_training()
 
-    for temp in temperatures:
+    for i, temp in enumerate(sweep_config.temperatures, 1):
         print(f"\n{'='*60}")
-        print(f"Training with Temperature = {temp}")
+        print(f"[{i}/{len(sweep_config.temperatures)}] Training with Temperature = {temp}")
         print(f"{'='*60}")
 
-        temp_output_dir = str(output_path / f"T_{temp}")
+        # Override configs for this temperature
+        student_cfg_copy = StudentConfig(
+            hidden_size=student_config.hidden_size,
+            num_layers=student_config.num_layers,
+            num_heads=student_config.num_heads,
+            intermediate_size=student_config.intermediate_size,
+            dropout=student_config.dropout,
+            epochs=sweep_config.epochs_per_temp,
+            batch_size=student_config.batch_size,
+            learning_rate=student_config.learning_rate,
+            weight_decay=student_config.weight_decay,
+            output_dir=str(output_path / f"T_{temp}"),
+        )
 
-        student, history = train_student(
-            mode="distill",
-            data_dir=data_dir,
-            output_dir=temp_output_dir,
-            teacher_path=teacher_path,
-            hidden_size=hidden_size,
-            num_layers=num_layers,
-            num_heads=num_heads,
-            intermediate_size=intermediate_size,
-            epochs=epochs,
-            batch_size=batch_size,
-            learning_rate=learning_rate,
+        distill_cfg = DistillationConfig(
             temperature=temp,
-            alpha=alpha,
-            max_length=max_length,
+            alpha=0.7,
+        )
+
+        student = train_student(
+            mode="distill",
+            data_config=data_config,
+            student_config=student_cfg_copy,
+            distill_config=distill_cfg,
             device=device,
         )
 
-        # Get best validation accuracy from history
-        best_val = max(h["val_acc"] for h in history)
+        # Load the results from the run
+        results_file = Path(student_cfg_copy.output_dir) / "distill" / "results.json"
+        if results_file.exists():
+            with open(results_file) as f:
+                run_results = json.load(f)
+            best_val = run_results.get("final_results", {}).get("best_val_acc", 0)
+            test_acc = run_results.get("final_results", {}).get("test", {}).get("accuracy", 0)
+            test_f1 = run_results.get("final_results", {}).get("test", {}).get("f1_macro", 0)
+        else:
+            best_val = 0
+            test_acc = 0
+            test_f1 = 0
 
-        results.append({
+        result = {
             "temperature": temp,
             "best_val_acc": best_val,
-            "final_train_acc": history[-1]["train_acc"],
-            "final_train_loss": history[-1]["train_loss"],
-        })
+            "test_acc": test_acc,
+            "test_f1": test_f1,
+        }
+        results.append(result)
 
-        print(f"T={temp}: Best Val Acc = {best_val:.4f}")
+        logger.log_epoch(i, {
+            "temperature": temp,
+            "best_val_acc": best_val,
+            "test_acc": test_acc,
+            "test_f1": test_f1,
+        })
 
     # Summary
     print("\n" + "=" * 60)
     print("TEMPERATURE SWEEP RESULTS")
     print("=" * 60)
-    print(f"{'Temperature':<15} {'Best Val Acc':<15} {'Final Train Acc':<15}")
-    print("-" * 45)
+    print(f"{'Temperature':<12} {'Val Acc':<12} {'Test Acc':<12} {'Test F1':<12}")
+    print("-" * 48)
     for r in results:
-        print(f"{r['temperature']:<15.1f} {r['best_val_acc']:<15.4f} {r['final_train_acc']:<15.4f}")
+        print(f"{r['temperature']:<12.1f} {r['best_val_acc']:<12.4f} {r['test_acc']:<12.4f} {r['test_f1']:<12.4f}")
 
     best_result = max(results, key=lambda x: x["best_val_acc"])
-    print(f"\nBest temperature: T={best_result['temperature']} (Val Acc: {best_result['best_val_acc']:.4f})")
+    print(f"\nBest: T={best_result['temperature']} (Val Acc: {best_result['best_val_acc']:.4f})")
 
-    # Save results
+    # Save sweep results
     with open(output_path / "sweep_results.json", "w") as f:
         json.dump(results, f, indent=2)
 
+    logger.log_final_results({"sweep_results": results, "best": best_result})
     return results
 
 
@@ -113,20 +141,21 @@ if __name__ == "__main__":
     parser.add_argument("--data_dir", type=str, default="data/processed")
     parser.add_argument("--output_dir", type=str, default="outputs/temperature_sweep")
     parser.add_argument("--teacher_path", type=str, default="outputs/teacher/best_model.pt")
-    parser.add_argument("--temperatures", type=float, nargs="+", default=[1, 2, 3, 5, 10, 20])
-    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--temperatures", type=float, nargs="+", default=[1, 2, 4, 6, 8, 10, 15, 20])
+    parser.add_argument("--epochs", type=int, default=15)
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--lr", type=float, default=5e-4)
-    parser.add_argument("--alpha", type=float, default=0.7)
     args = parser.parse_args()
 
-    temperature_sweep(
+    data_cfg = DataConfig(data_dir=args.data_dir)
+    student_cfg = StudentConfig(batch_size=args.batch_size, learning_rate=args.lr)
+    sweep_cfg = TemperatureSweepConfig(
         temperatures=args.temperatures,
-        data_dir=args.data_dir,
+        epochs_per_temp=args.epochs,
         output_dir=args.output_dir,
-        teacher_path=args.teacher_path,
-        epochs=args.epochs,
-        batch_size=args.batch_size,
-        learning_rate=args.lr,
-        alpha=args.alpha,
+    )
+    temperature_sweep(
+        data_config=data_cfg,
+        student_config=student_cfg,
+        sweep_config=sweep_cfg,
     )
