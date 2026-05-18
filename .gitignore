@@ -11,6 +11,7 @@ eggs/
 
 # Virtual environments
 venv/
+.venv/
 env/
 .env/
 
@@ -27,8 +28,7 @@ env/
 # data/raw/
 # data/processed/
 
-# Model outputs
-# Tracked experiment artifacts live under outputs/.
+# Model outputs - large binary files not tracked (use Git LFS)
 *.bin
 *.ckpt
 

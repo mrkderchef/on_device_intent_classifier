@@ -1,0 +1,32 @@
+{
+  "teacher": {
+    "accuracy": 0.9914285714285714,
+    "f1_macro": 0.9914542044055565,
+    "parameters": 109487623,
+    "size_mb": 417.66994857788086,
+    "training_time_min": 73.4863702138265
+  },
+  "student_baseline": {
+    "accuracy": 0.9807142857142858,
+    "f1_macro": 0.9807096659189743,
+    "parameters": 8935943,
+    "size_mb": 34.11916732788086,
+    "training_time_min": 12.388340890407562
+  },
+  "student_distilled": {
+    "accuracy": 0.9835714285714285,
+    "f1_macro": 0.9835499933265982,
+    "parameters": 8935943,
+    "size_mb": 34.11916732788086,
+    "training_time_min": 79.56109986305236,
+    "temperature": 4.0,
+    "alpha": 0.7
+  },
+  "compression": {
+    "parameter_ratio": 12.252497917679197,
+    "size_reduction_pct": 91.8310696175167,
+    "accuracy_retention_pct": 99.20749279538904,
+    "f1_retention_pct": 99.20276589237952,
+    "distillation_gain_over_baseline": 0.0028571428571427804
+  }
+}

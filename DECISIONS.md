@@ -158,3 +158,26 @@ including the reasoning behind each choice. It serves as an audit trail.
 - T=10-20: heavy softening, likely too aggressive for 7 classes
 - 8 points gives good coverage without excessive compute on CPU
 - Results plotted as accuracy vs. temperature curve
+
+---
+
+## 11. Observed Results & Validation of Decisions
+
+### Teacher Performance (validates Decision 4 & 5)
+- **99.14% test accuracy** after 5 epochs of fine-tuning
+- Converged from 95.2% → 99.2% (train) in 5 epochs, confirming that 5 epochs is sufficient
+- Training time: 73.5 minutes on CPU (acceptable for a one-time teacher training)
+
+### Student Baseline (validates Decision 3)
+- **98.07% test accuracy** — only 1.07% below teacher despite 12.3x fewer parameters
+- Confirms that the 2-layer architecture with 256 hidden units has sufficient capacity
+- Best epoch: 17 out of 20, validating the 20-epoch budget for from-scratch training
+
+### Distilled Student (validates Decision 5 — KD hyperparameters)
+- **98.36% test accuracy** — outperforms baseline by +0.29%
+- T=4.0 and α=0.7 produced a clear improvement over hard-label-only training
+- Best epoch: 13 (converges faster than baseline's epoch 17, as expected from richer gradient signal)
+- Teacher accuracy retention: 99.2%
+
+### Key Insight
+Distillation's value is most visible in the test set improvement (+0.29%) while validation accuracy was slightly lower (97.94% vs 98.09%). This suggests the distilled student generalizes better — soft targets act as a regularizer, preventing overfitting to the training distribution.
